@@ -3,6 +3,9 @@ var app = express();
 const { mongoose } = require("./database");
 const cors = require("cors");
 
+app.use(express.json({limit: '10mb'})); //agregar para establecer el limite de los datos
+app.use(express.urlencoded({limit: '10mb'}))
+
 //middlewares
 app.use(express.json());
 app.use(cors({origin: 'http://localhost:4200'}));
