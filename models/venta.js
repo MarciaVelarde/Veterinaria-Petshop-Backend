@@ -8,7 +8,7 @@ const { Schema } = mongoose;
 const VentaSchema = new Schema({
     fecha : {type: Date, required: true},
     medioEnvio : {type: String, required: true},
-    productos : [{type: Schema.Types.ObjectId, ref: Producto, required: true}],
+    productos : [{type: Producto.schema}],
     pago : {type: Schema.Types.ObjectId, ref: Pago, required: true},
     //usuario : {type: Schema.Types.ObjectId, ref: Usuario, required: true}
 })

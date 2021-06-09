@@ -7,7 +7,7 @@ app.use(express.json({limit: '10mb'})); //agregar para establecer el limite de l
 app.use(express.urlencoded({limit: '10mb'}))
 
 //middlewares
-app.use(express.json());
+//app.use(express.json());
 app.use(cors({origin: 'http://localhost:4200'}));
 
 //Cargamos el modulo de direccionamiento de rutas para puntos

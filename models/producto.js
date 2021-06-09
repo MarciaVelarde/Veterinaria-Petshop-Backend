@@ -15,7 +15,7 @@ const ProductoSchema = new Schema({
     precioVenta:{type: Number, required: true},
     fechaVencimiento:{type: Date, required: true},
     fechaRecepcion:{type: Date, required: true},
-    img:{type: String, required: true},
+    img:{type: String, required: true}
 });
 
-module.exports = mongoose.model('Producto', ProductoSchema);
+module.exports = mongoose.models.Producto || mongoose.model('Producto', ProductoSchema);
