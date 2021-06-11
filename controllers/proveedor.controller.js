@@ -2,12 +2,12 @@ const Proveedor = require('../models/proveedor');
 const proveedorCtrl = {}
 
 proveedorCtrl.getProveedores = async (req, res) => {
-    //console.log(req.body);
+  //console.log(req.body);
   //console.log(req.query);
   let criterios = {};
 
-  if (req.body.nombre != "")    //búsqueda por patrones de nombre
-    criterios.nombre = { $regex: req.body.nombre, $options: "i" };
+  if(req.query.nombre != '') //búsqueda por patrones de nombre de producto
+    criterios.nombre = { $regex: req.query.nombre, $options: "i" }
 
   //if(req.body.categoria._id != '')
   //  criterios.categoria._id = req.body.categoria._id
@@ -26,10 +26,8 @@ proveedorCtrl.getProveedores = async (req, res) => {
 
   //console.log(criterios);
 
-  let productos = await Producto.find(criterios)
-    .populate("proveedor")
-    .populate("categoria");
-  res.json(productos);
+  let proveedores = await Proveedor.find(criterios);
+  res.json(proveedores);
 }
 
 proveedorCtrl.addProveedor = async (req, res) => {

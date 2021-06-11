@@ -8,7 +8,6 @@ productoCtrl.getProducto = async (req, res) => {
 
 productoCtrl.getProductos = async (req, res) => {
   let criterios = {};
-  console.log(req.query)
   /*
   if(req.body.nombre != '') //búsqueda por patrones de nombre
     criterios.nombre = { $regex: req.body.nombre, $options: "i" }
