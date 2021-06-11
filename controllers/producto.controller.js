@@ -7,7 +7,18 @@ productoCtrl.getProducto = async (req, res) => {
 };
 
 productoCtrl.getProductos = async (req, res) => {
-  var productos = await Producto.find()
+  let criterios = {};
+  console.log(req.query)
+  /*
+  if(req.body.nombre != '') //búsqueda por patrones de nombre
+    criterios.nombre = { $regex: req.body.nombre, $options: "i" }
+  */
+  if(req.query.nombre != '') //búsqueda por patrones de nombre de producto
+    criterios.nombre = { $regex: req.query.nombre, $options: "i" }
+  if(req.query.codigo != '') //búsqueda por patrones de nombre de producto
+    criterios.codigo = { $regex: req.query.codigo, $options: "i" }
+
+  let productos = await Producto.find(criterios)
     .populate("proveedor")
     .populate("categoria");
   res.json(productos);
