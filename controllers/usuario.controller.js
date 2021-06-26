@@ -3,7 +3,7 @@ const Usuario = require('../models/usuario');
 const usuarioCtrl = {};
 
 usuarioCtrl.getUsuarios = async (req, res) => {
-    let usuarios = await Usuario.find().populate('ventas');
+    let usuarios = await Usuario.find();
     res.json(usuarios);
 }
 
@@ -44,5 +44,40 @@ usuarioCtrl.updateUsuario = async (req, res) => {
         })
     }
 }
+
+usuarioCtrl.loginUsuario = async (req, res) => {
+    //en req.body se espera que vengan las credenciales de login
+    //defino los criterios de busqueda en base al username y password recibidos
+    const criteria = {
+        username: req.body.username,
+        password: req.body.password
+    }
+    //el método findOne retorna un objeto que cumpla con los criterios de busqueda
+    Usuario.findOne(criteria, function (err, user) {
+        //el método findOne retorna un objeto que cumpla con los criterios de busqueda
+        if (err) {
+            res.json({
+                status: 0,
+                msg: 'error'
+            })
+        };
+        if (!user) {
+            res.json({
+                status: 0,
+                msg: "not found"
+            })
+        } else {
+            res.json({
+                status: 1,
+                msg: "success",
+                username: user.username,
+                rol: user.tipoUsuario,
+                id: user._id
+            });
+        }
+    })
+}
+
+
 
 module.exports = usuarioCtrl;

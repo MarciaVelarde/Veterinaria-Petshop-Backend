@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const Venta = require('./venta');
 
 const { Schema } = mongoose;
 
@@ -12,7 +11,7 @@ const UsuarioSchema = new Schema({
     domicilio : {type: String, required: true},
     email : {type:String, required: true},
     telefono : {type: String, required: true},
-    ventas : [{type: Schema.Types.ObjectId, ref: Venta}]
+    //ventas : [{type: Schema.Types.ObjectId, ref: Venta}]
 })
 
 module.exports = mongoose.model('Usuario', UsuarioSchema);
