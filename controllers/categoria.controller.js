@@ -58,4 +58,12 @@ categoriaCtrl.deleteCategoria = async (req, res)=>{
  }
 }
 
+categoriaCtrl.getCategoriaByTipos = async (req, res) => {
+    var categoria = await Categoria.find({
+        tipoMascota : req.params.tipoMascota,
+        tipoProducto : req.params.tipoProducto
+    });
+    res.json(categoria);
+}
+
 module.exports = categoriaCtrl;

@@ -10,5 +10,6 @@ router.get('/', categoriaCtrl.getCategorias);
 router.post('/', categoriaCtrl.addCategoria);
 router.delete('/:id', categoriaCtrl.deleteCategoria);
 router.put('/:id', categoriaCtrl.editCategoria);
+router.get('/:tipoMascota/:tipoProducto', categoriaCtrl.getCategoriaByTipos);
 
 module.exports = router;

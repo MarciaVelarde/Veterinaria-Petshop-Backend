@@ -2,7 +2,7 @@ const Producto = require("../models/producto");
 const productoCtrl = {};
 
 productoCtrl.getProducto = async (req, res) => {
-  const producto = await Producto.findById(req.params.id).populate("proveedor");
+  const producto = await Producto.findById(req.params.id).populate("proveedor").populate("categoria");
   res.json(producto);
 };
 
@@ -57,7 +57,7 @@ productoCtrl.deleteProducto = async (req, res) => {
 productoCtrl.editProducto = async (req, res) => {
   var producto = new Producto(req.body);
   try {
-    await producto.updateOne({ _id: req.body._id }, pasaje);
+    await producto.updateOne({ _id: req.body._id }, producto);
     res.json({
       status: "1",
       msg: "Producto actualizado",
@@ -70,12 +70,9 @@ productoCtrl.editProducto = async (req, res) => {
   }
 };
 
-/*
-productoCtrl.getPasajesByCategoriaPasajero = async (req, res) => {
-    var pasajes = await Pasaje.find({    
-        categoriaPasajero: req.params.categoriaPasajero
-    })
-    res.json(pasajes);
-}*/
+productoCtrl.getProductoByCodigo = async (req, res) => {
+  const producto = await Producto.findOne({ codigo: req.params.codigo });
+  res.json(producto);
+}
 
 module.exports = productoCtrl;

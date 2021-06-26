@@ -13,7 +13,7 @@ const ProductoSchema = new Schema({
     categoria:{type: Schema.Types.ObjectId, ref: Categoria, required: true},
     precioCompra:{type: Number, required: true},
     precioVenta:{type: Number, required: true},
-    fechaVencimiento:{type: Date, required: true},
+    fechaVencimiento:{type: Date},
     fechaRecepcion:{type: Date, required: true},
     img:{type: String, required: true}
 });
