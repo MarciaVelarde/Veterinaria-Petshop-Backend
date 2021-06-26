@@ -55,9 +55,9 @@ productoCtrl.deleteProducto = async (req, res) => {
 };
 
 productoCtrl.editProducto = async (req, res) => {
-  var producto = new Producto(req.body);
+  var vproducto = new Producto(req.body);
   try {
-    await producto.updateOne({ _id: req.body._id }, producto);
+    await Producto.updateOne({ _id: req.body._id }, vproducto);
     res.json({
       status: "1",
       msg: "Producto actualizado",
