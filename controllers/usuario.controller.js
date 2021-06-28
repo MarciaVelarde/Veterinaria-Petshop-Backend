@@ -3,9 +3,26 @@ const Usuario = require('../models/usuario');
 const usuarioCtrl = {};
 
 usuarioCtrl.getUsuarios = async (req, res) => {
-    let usuarios = await Usuario.find();
+    let criterios = {};
+    if(req.query.nombre != '')
+        criterios.nombre = { $regex: req.query.nombre, $options: "i" }
+    if(req.query.apellido != '')
+        criterios.apellido = { $regex: req.query.apellido, $options: "i" }
+    if(req.query.tipoUsuario != '')
+        criterios.tipoUsuario = { $regex: req.query.tipoUsuario, $options: "i" }
+    let usuarios = await Usuario.find(criterios);
     res.json(usuarios);
 }
+
+usuarioCtrl.getUsuario= async (req, res) => {
+    const usuario = await Usuario.findById(req.params.id);
+    res.json(usuario);
+  };
+
+usuarioCtrl.getUsuarioByRol = async (req, res) => {
+    const usuario = await Usuario.findOne({ tipoUsuario: req.params.tipoUsuario });
+    res.json(usuario);
+  }
 
 usuarioCtrl.addUsuario = async (req, res) => {
     let usuario = new Usuario(req.body);
@@ -24,13 +41,7 @@ usuarioCtrl.addUsuario = async (req, res) => {
 }
 
 usuarioCtrl.updateUsuario = async (req, res) => {
-    console.log(req.body)
     let usuario = new Usuario(req.body);
-    //console.log(usuario.ventas)
-    //usuario.ventas.push(req.body._idVenta);
-    console.log(usuario)
-
-
     try {
         await Usuario.updateOne({ _id: req.body._id }, usuario);
         res.json({
@@ -43,6 +54,26 @@ usuarioCtrl.updateUsuario = async (req, res) => {
             'msg': 'Error procesando la operación: ' + error
         })
     }
+}
+
+usuarioCtrl.deleteUsuario = async (req, res) => {
+    try {
+      await Usuario.deleteOne({ _id: req.params.id });
+      res.json({
+        status: "1",
+        msg: "Usuario eliminado",
+      });
+    } catch (error) {
+      res.json({
+        status: "0",
+        msg: "Error no se pudo eliminar el usuario",
+      });
+    }
+  };
+
+usuarioCtrl.getUsuarioByUsername = async (req, res) => {
+    const usuario = await Usuario.findOne({ username: req.params.username });
+    res.json(usuario);
 }
 
 usuarioCtrl.loginUsuario = async (req, res) => {
