@@ -54,7 +54,7 @@ proveedorCtrl.getProveedor = async (req, res) => {
 proveedorCtrl.editProveedor = async (req, res) => {
     const vproveedor = new Proveedor(req.body);
     try {
-        await Noticia.updateOne({_id: req.body._id}, vproveedor);
+        await Proveedor.updateOne({_id: req.body._id}, vproveedor);
         res.json({
             'status': '1',
             'msg': 'Proveedor updated'
