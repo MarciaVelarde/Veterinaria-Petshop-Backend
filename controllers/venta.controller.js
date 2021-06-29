@@ -4,7 +4,7 @@ const ventaCtrl = {};
 
 
 ventaCtrl.getVentas = async (req, res) => {
-    let venta = await Venta.find();
+    let venta = await Venta.find().populate("usuario");
     res.json(venta);
 }
 
